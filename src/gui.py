@@ -4,6 +4,7 @@ import win32gui
 import subprocess
 
 import adjustScreen
+from pynput import keyboard
 
 class App():
 	# class var
@@ -35,7 +36,7 @@ class App():
 		self.grip.bind("<ButtonPress-1>", self.start_move)
 		self.grip.bind("<ButtonRelease-1>", self.stop_move)
 		self.grip.bind("<B1-Motion>", self.do_move)
-		self.grip.bind("<ButtonPress-3>", self.show_ui)
+		self.grip.bind("<ButtonPress-3>", lambda event: self.show_ui())
 		
 		self.frame = Frame(self.root, width=480, height=850, borderwidth=10, relief=RAISED)
 		self.frame.configure(background='#1b2940')
@@ -82,7 +83,17 @@ class App():
 
 		# keybinds for hotkeys
 		# showSCR bind to a keyboard, TODO: remove this 
-		self.root.bind("<Key-F9>", lambda x: self.show_ui())
+		#self.root.bind("<Key-F9>", lambda x: self.show_ui())
+			
+		def on_press(key):
+			if (key == keyboard.Key.f9):
+				self.show_ui()
+		#with keyboard.Listener(on_press = on_press) as listener:
+		#	listener.join()
+		listener = keyboard.Listener(on_press=on_press)
+		listener.start()
+	
+
 
 		self.tCoord1=Label(self.frame,text='x', bg='#1b2940', fg='white')
 		self.tCoord2=Label(self.frame, text='y', bg='#1b2940', fg='white')
@@ -105,6 +116,7 @@ class App():
 		self.bSubmit.grid(row=0, column=7)
 		self.bOff.grid(row=0, column=8)
 		self.bQuit.grid(row=1, column=8)
+		Label(self.frame, text='F9 to hide/show ui', bg='#1b2940', fg='white').grid(row=2, column=0, columnspan=9)
 
 		# explanation of each button (Label area)
 		
@@ -126,9 +138,11 @@ class App():
 		self.root.geometry(f"+{x}+{y}")
 	def show_ui(self):
 		if (self.state == 0):
+			print('show ui')
 			self.state = 1
 			self.root.deiconify()
 		else:
+			print('hide ui')
 			self.state = 0
 			self.root.withdraw()
 	
