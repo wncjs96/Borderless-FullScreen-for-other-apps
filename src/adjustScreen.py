@@ -16,28 +16,34 @@ def waitOnSignal(hwnd, x,y,width,height):
 		print('Sleeping...')
 		time.sleep(1)
 	print('Woke up!')
+	print('off state')
 
 	win32gui.SetWindowPos(hwnd, -2, x, y, width, height, 1)
 	return
 
-def adjust(title, x,y,width,height):
+def adjust(title, x,y,width,height, st):
 	#  up only active
 	hwnd = win32gui.FindWindow(None, title)
 	print(title)
 	print(hwnd)
 	if (hwnd != 0): 
+		print('on state')
 		win32gui.MoveWindow(hwnd, x,y,width,height,1)
 		win32gui.SetWindowPos(hwnd, -1, x,y,width,height, 1)
 	
 	# Thread join wait
 	# TODO: fix	
-	#t1 = threading.Thread(target=waitOnSignal, args=(hwnd, x,y,width,height,))
-	#t1.start()
+	if (st == 1):
+		print('got here')
+		t1 = threading.Thread(target=waitOnSignal, args=(hwnd, x,y,width,height,))
+		t1.start()
 	
 	#print('signal arrived')
 	
 	return
 
 def off(title, x,y,width,height):
+	print('off state')
 	hwnd = win32gui.FindWindow(None, title)
 	win32gui.SetWindowPos(hwnd, -2,x,y,width,height,1)
+	return

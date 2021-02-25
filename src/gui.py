@@ -56,17 +56,20 @@ class App():
 		self.eHeight = Entry(self.frame, width=10)
 		self.eHeight.insert(0,self.height)
 		
-		self.eCoord1.bind('<Return>', lambda x=None: adjustScreen.adjust(str(self.oApps_var.get()), int(self.eCoord1.get()), int(self.eCoord2.get()), int(self.eWidth.get()), int(self.eHeight.get())))
-		self.eWidth.bind('<Return>', lambda x=None: adjustScreen.adjust(str(self.oApps_var.get()), int(self.eCoord1.get()), int(self.eCoord2.get()), int(self.eWidth.get()), int(self.eHeight.get())))
-		self.eCoord2.bind('<Return>', lambda x=None: adjustScreen.adjust(str(self.oApps_var.get()), int(self.eCoord1.get()), int(self.eCoord2.get()), int(self.eWidth.get()), int(self.eHeight.get())))
-		self.eHeight.bind('<Return>', lambda x=None: adjustScreen.adjust(str(self.oApps_var.get()), int(self.eCoord1.get()), int(self.eCoord2.get()), int(self.eWidth.get()), int(self.eHeight.get())))
+		var1 = IntVar()
+		
+		self.eCoord1.bind('<Return>', lambda x=None: adjustScreen.adjust(str(self.oApps_var.get()), int(self.eCoord1.get()), int(self.eCoord2.get()), int(self.eWidth.get()), int(self.eHeight.get()), var1.get()))
+		self.eWidth.bind('<Return>', lambda x=None: adjustScreen.adjust(str(self.oApps_var.get()), int(self.eCoord1.get()), int(self.eCoord2.get()), int(self.eWidth.get()), int(self.eHeight.get()), var1.get()))
+		self.eCoord2.bind('<Return>', lambda x=None: adjustScreen.adjust(str(self.oApps_var.get()), int(self.eCoord1.get()), int(self.eCoord2.get()), int(self.eWidth.get()), int(self.eHeight.get()), var1.get()))
+		self.eHeight.bind('<Return>', lambda x=None: adjustScreen.adjust(str(self.oApps_var.get()), int(self.eCoord1.get()), int(self.eCoord2.get()), int(self.eWidth.get()), int(self.eHeight.get()), var1.get()))
 
 		# Buttons
 		self.bGetApps = Button(self.frame, text="Refresh App List", command=self.getApps)
-		self.bSubmit =Button(self.frame, text="Apply", command=lambda: adjustScreen.adjust(str(self.oApps_var.get()), int(self.eCoord1.get()), int(self.eCoord2.get()), int(self.eWidth.get()), int(self.eHeight.get())))
+		self.bSubmit =Button(self.frame, text="Apply", command=lambda: adjustScreen.adjust(str(self.oApps_var.get()), int(self.eCoord1.get()), int(self.eCoord2.get()), int(self.eWidth.get()), int(self.eHeight.get()), var1.get()))
 
 		self.bOff = Button(self.frame, text="OFF Button", command=lambda: adjustScreen.off(str(self.oApps_var.get()), int(self.eCoord1.get()), int(self.eCoord2.get()), int(self.eWidth.get()), int(self.eHeight.get())))
-		
+
+		self.bCheck = Checkbutton(self.frame, variable = var1, bg='#1b2940')
 
 		# OptionMenu to get the list of active/inactive apps
 		self.oApps_var = StringVar(self.frame)	
@@ -85,6 +88,7 @@ class App():
 		self.tCoord2=Label(self.frame, text='y', bg='#1b2940', fg='white')
 		self.tWidth=Label(self.frame, text='width', bg='#1b2940', fg='white')
 		self.tHeight=Label(self.frame, text='height',bg='#1b2940', fg='white')
+		self.tCheck=Label(self.frame, text='automatic Off when inactive', bg='#1b2940', fg='white')
 		
 		self.tCoord1.grid(row=0, column=0)
 		self.tCoord2.grid(row=0, column=1)
@@ -96,9 +100,11 @@ class App():
 		self.eHeight.grid(row=1, column=3)
 		self.bGetApps.grid(row=0,column=4, columnspan=2)
 		self.oApps.grid(row=1, column=4)
-		self.bSubmit.grid(row=0, column=5)
-		self.bOff.grid(row=0, column=6)
-		self.bQuit.grid(row=1, column=6)
+		self.tCheck.grid(row=0, column=6)
+		self.bCheck.grid(row=1, column=6)
+		self.bSubmit.grid(row=0, column=7)
+		self.bOff.grid(row=0, column=8)
+		self.bQuit.grid(row=1, column=8)
 
 		# explanation of each button (Label area)
 		
