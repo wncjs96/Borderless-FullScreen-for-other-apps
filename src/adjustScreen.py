@@ -29,10 +29,15 @@ def adjust(title, x,y,width,height):
 		win32gui.MoveWindow(hwnd, x,y,width,height,1)
 		win32gui.SetWindowPos(hwnd, -1, x,y,width,height, 1)
 	
-	# Thread join wait	
-	t1 = threading.Thread(target=waitOnSignal, args=(hwnd, x,y,width,height,))
-	t1.start()
+	# Thread join wait
+	# TODO: fix	
+	#t1 = threading.Thread(target=waitOnSignal, args=(hwnd, x,y,width,height,))
+	#t1.start()
 	
 	#print('signal arrived')
 	
 	return
+
+def off(title, x,y,width,height):
+	hwnd = win32gui.FindWindow(None, title)
+	win32gui.SetWindowPos(hwnd, -2,x,y,width,height,1)

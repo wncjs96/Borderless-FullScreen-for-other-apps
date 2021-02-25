@@ -65,6 +65,9 @@ class App():
 		self.bGetApps = Button(self.frame, text="Refresh App List", command=self.getApps)
 		self.bSubmit =Button(self.frame, text="Apply", command=lambda: adjustScreen.adjust(str(self.oApps_var.get()), int(self.eCoord1.get()), int(self.eCoord2.get()), int(self.eWidth.get()), int(self.eHeight.get())))
 
+		self.bOff = Button(self.frame, text="OFF Button", command=lambda: adjustScreen.off(str(self.oApps_var.get()), int(self.eCoord1.get()), int(self.eCoord2.get()), int(self.eWidth.get()), int(self.eHeight.get())))
+		
+
 		# OptionMenu to get the list of active/inactive apps
 		self.oApps_var = StringVar(self.frame)	
 		self.oApps_var.set(self.lst[0])
@@ -91,10 +94,11 @@ class App():
 		self.eCoord2.grid(row=1, column=1)
 		self.eWidth.grid(row=1, column=2)
 		self.eHeight.grid(row=1, column=3)
-		self.bGetApps.grid(row=0,column=4)
+		self.bGetApps.grid(row=0,column=4, columnspan=2)
 		self.oApps.grid(row=1, column=4)
 		self.bSubmit.grid(row=0, column=5)
-		self.bQuit.grid(row=1, column=5)
+		self.bOff.grid(row=0, column=6)
+		self.bQuit.grid(row=1, column=6)
 
 		# explanation of each button (Label area)
 		
