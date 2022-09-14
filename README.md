@@ -5,6 +5,7 @@ adjusts the other apps screen to make it bordeless fullscreen (need to be on wit
 ## Prerequisites:
 Tkinter: pip install tkinter  
 pynput: python -m pip install --upgrade pynput  
+win32gui: pip install win32gui
  
 ## USAGE:
 1. Pick an application
